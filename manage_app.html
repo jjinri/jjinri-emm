@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Iframe Content Example</title>
+</head>
+<body>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<div style="
+    background: #fff;
+    position: absolute;
+    top: 29px;
+    left: 24px;
+    font-size: xxx-large;
+">KT EMM</div>
+<br>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<div id="container"></div>
+<script>
+
+  gapi.load('gapi.iframes', function() {
+
+    var options = {
+        'url': 'https://play.google.com/work/embedded/search?token=WAKBtL_MT96iCZeGiZT5azGL8Lp6i9lvS1lFV0xrzKnco6_oaUnm2aNG-J4MxyyHwGC8ppVEiSNgFEQbBLwXMwAu3wF7sC-XET5nFjP8UVJKZUjafVO8JSn8cHqGDNdIGXW8yiux4ysjrrqxbEGbejOMk_QOJMy9Oqg&mode=SELECT',
+      'where': document.getElementById('container'),
+      'attributes': { style: 'width: 600px; height:1000px', scrolling: 'yes'}
+    }
+
+    var iframe = gapi.iframes.getContext().openChild(options);
+    iframe.register('onproductselect', async function(event) {
+      console.log(event);
+      const packageName = event.packageName;
+      console.log(packageName);
+
+      const lteid = "jjinri";
+      const policyName = 'default';
+      // TEST 되지 않음
+      const emmUrl = "https://1.231.29.229:18443"
+      const regiUrl = `${emmUrl}/app/register`;
+      console.log(regiUrl);
+
+      const res = await fetch(regiUrl, {method: "POST", body: JSON.stringify({LTEID: lteid, policyName: policyName, packageName: packageName})});
+      const json_data = await res.json();
+      post(json_data); // error 가 없네
+
+    }, gapi.iframes.CROSS_ORIGIN_IFRAMES_FILTER);
+  });
+
+</script>
+
+</body>
+</html>
