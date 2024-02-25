@@ -22,11 +22,14 @@
 
   gapi.load('gapi.iframes', function() {
 
+    var webToken =
+          "WAKBtL_Mzh3a8s1eY2I5FSD-jr1iC7xndJ7D7il2C-oL9-UMJky2LT4AyapE8QoarxLoQDG2z84SPk41oBd3c9vXTL5lltqhnb_bALQP6VQ_ZfD3Z92aQIsaR_0ENeZ6V7AOjso-MqOWiYHTGp2gkFvRqwC9HSZNA2w";
     var options = {
-        'url': 'https://play.google.com/work/embedded/search?token=WAKBtL_Mzh3a8s1eY2I5FSD-jr1iC7xndJ7D7il2C-oL9-UMJky2LT4AyapE8QoarxLoQDG2z84SPk41oBd3c9vXTL5lltqhnb_bALQP6VQ_ZfD3Z92aQIsaR_0ENeZ6V7AOjso-MqOWiYHTGp2gkFvRqwC9HSZNA2w&mode=SELECT',
+        'url': 'https://play.google.com/work/embedded/search?token=${webToken}&mode=SELECT',
       'where': document.getElementById('container'),
       'attributes': { style: 'width: 600px; height:1000px', scrolling: 'yes'}
     }
+    console.log(options.url);
 
     var iframe = gapi.iframes.getContext().openChild(options);
     iframe.register('onproductselect', async function(event) {
